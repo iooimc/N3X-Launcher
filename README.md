@@ -4,6 +4,10 @@ N3X Launcher is an independent third-party **Minecraft: Java Edition launcher fo
 
 > **Status:** Early alpha / development build. N3X is not ready for general public use yet.
 
+🌐 **Project website:** https://iooimc.github.io/N3X-Launcher/
+
+⬇️ **Downloads / releases:** https://github.com/iooimc/N3X-Launcher/releases
+
 ## What N3X does
 
 N3X is being built as a clean Windows launcher for players who already own Minecraft: Java Edition.
@@ -22,9 +26,9 @@ Current development goals include:
 
 ## Microsoft authentication
 
-N3X uses Microsoft's official OAuth 2.0 **public client / device code flow**.
+N3X uses Microsoft's OAuth 2.0 **public client / device code flow**.
 
-The launcher does **not** ask for or store a user's Microsoft password. Authentication is completed directly through Microsoft. After Microsoft authentication, N3X uses the normal Xbox Live, XSTS and Minecraft Services authentication chain required for Minecraft: Java Edition.
+The launcher does **not** ask for or store a user's Microsoft password. Authentication is completed directly through Microsoft. After Microsoft authentication, N3X uses the Xbox Live, XSTS and Minecraft Services authentication chain required for Minecraft: Java Edition.
 
 N3X only intends to launch Minecraft for users who already have a valid Minecraft: Java Edition entitlement.
 
@@ -32,7 +36,7 @@ N3X only intends to launch Minecraft for users who already have a valid Minecraf
 
 The N3X Microsoft application registration is currently being submitted for Minecraft AppID approval.
 
-The current authentication implementation successfully reaches Microsoft OAuth, Xbox Live and XSTS. Access to Minecraft Services is pending approval of the N3X application registration.
+The current authentication implementation reaches Microsoft OAuth, Xbox Live and XSTS. Access to Minecraft Services is pending approval of the N3X application registration.
 
 ## Privacy and security
 
@@ -50,8 +54,6 @@ The current authentication implementation successfully reaches Microsoft OAuth, 
 ## Development status
 
 N3X is currently an **alpha project**. Features, UI and internal implementation may change before a public release.
-
-The repository is being prepared as the public project page for N3X while development continues.
 
 ## Disclaimer
 
