@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-18T10:03:00Z",
+  "capes": [
+    {
+      "id": "ender-grid",
+      "name": "Ender Grid",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#48e4b4", "#102b25"],
+      "bundled": true
+    },
+    {
+      "id": "n3x-core",
+      "name": "N3X Core",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#a674ff", "#281844"],
+      "bundled": true
+    },
+    {
+      "id": "neurofly-brain",
+      "name": "NeuroFly Brain",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#54e2c1", "#10342b"],
+      "bundled": true
+    },
+    {
+      "id": "purple-rift",
+      "name": "Purple Rift",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#b07cff", "#3f1d70"],
+      "bundled": true
+    },
+    {
+      "id": "void-circuit",
+      "name": "Void Circuit",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#6578ff", "#11162f"],
+      "bundled": true
+    },
+    {
+      "id": "purple-heart",
+      "name": "Purple Heart",
+      "source": "N3X",
+      "textureUrl": null,
+      "previewUrl": null,
+      "colors": ["#955cff", "#ffffff"],
+      "bundled": false
+    }
+  ]
+}
