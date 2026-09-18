@@ -1,23 +1,30 @@
 {
   "name": "N3X Network",
-  "schemaVersion": 1,
-  "mode": "static-read-only",
+  "schemaVersion": 2,
+  "mode": "github-pages-admin-managed",
   "transport": "https",
   "pagesBase": "https://iooimc.github.io/N3X-Launcher/",
   "rawBase": "https://raw.githubusercontent.com/iooimc/N3X-Launcher/main/",
+  "capeServiceUrl": "https://iooimc.github.io/N3X-Launcher/network",
   "endpoints": {
     "capeCatalog": "network/capes/catalog.json",
     "userIndex": "network/users/index.json",
-    "userDirectory": "network/users/"
+    "userDirectory": "network/users/",
+    "assignedCapeDirectory": "network/v1/capes/",
+    "registrationPage": "register.html",
+    "adminPage": "admin.html"
   },
   "capabilities": {
     "publicCapeCatalog": true,
     "publicProfiles": true,
+    "publicAssignedCapeRead": true,
     "clientReadWithoutToken": true,
-    "clientWriteWithoutBackend": false
+    "playerRegistrationViaGithubIssue": true,
+    "adminAssignmentViaGithubContentsApi": true
   },
   "security": {
     "embedGithubWriteTokenInClient": false,
-    "notes": "N3X clients only read public data. Writes must later go through an authenticated serverless bridge."
+    "adminTokenPersistence": false,
+    "notes": "Launchers and mods only read public data. The admin panel asks the repository owner for a GitHub token at runtime and never stores it in the repository or launcher."
   }
 }
