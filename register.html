@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080910"><title>N3X Network Registrierung</title>
+<link rel="stylesheet" href="network/admin.css">
+<style>.register{max-width:760px;margin:70px auto;padding:0 22px}.register h1{font-size:52px;letter-spacing:-3px;margin:10px 0}.register h1 b{color:var(--accent)}.register .lead{color:var(--muted);line-height:1.7}.register .panel{margin-top:24px}.register .stack{gap:14px}.register .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.register .notice{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.6;background:#0c0f17}.register code{color:#d7caff}.register .brandline{font-weight:900;letter-spacing:.14em;font-size:11px;color:#b5a3ef}</style>
+</head>
+<body>
+<main class="register">
+  <div class="brandline">N3X // NETWORK</div>
+  <h1>Registriere deinen <b>Style.</b></h1>
+  <p class="lead">Deine Minecraft-UUID wird als öffentliche N3X-ID verwendet. Nach deiner Anfrage entscheidet der N3X-Admin, ob du freigeschaltet wirst und welches Network-Cape du bekommst.</p>
+  <section class="panel">
+    <div class="stack">
+      <div class="field"><label>MINECRAFT NAME</label><input id="name" maxlength="16" placeholder="Dein Minecraft-Name"></div>
+      <div class="field"><label>MINECRAFT UUID</label><input id="uuid" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
+    </div>
+    <div class="actions"><button id="register" class="btn primary">Registrierungsanfrage erstellen</button><a class="btn" href="./">Zur N3X Website</a></div>
+    <div id="status" class="status">Noch nichts abgeschickt.</div>
+    <div class="notice"><b>Warum öffnet sich GitHub?</b><br>GitHub Pages kann selbst keine Formulardaten speichern. Solange N3X keinen eigenen Backend-Server hat, wird die Anfrage deshalb als GitHub Issue angelegt. Du brauchst dafür einen kostenlosen GitHub-Account. Dein Microsoft-/Minecraft-Passwort wird niemals abgefragt.</div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function normalizeUuid(value){const s=String(value||'').replace(/-/g,'').toLowerCase();if(!/^[0-9a-f]{32}$/.test(s))throw new Error('Bitte eine gültige Minecraft-UUID eingeben.');return `${s.slice(0,8)}-${s.slice(8,12)}-${s.slice(12,16)}-${s.slice(16,20)}-${s.slice(20)}`;}
+const q=new URLSearchParams(location.search);if(q.get('name'))$('name').value=q.get('name').slice(0,16);if(q.get('uuid')){try{$('uuid').value=normalizeUuid(q.get('uuid'));}catch{}}
+$('register').onclick=()=>{try{const name=$('name').value.trim();if(!/^[A-Za-z0-9_]{3,16}$/.test(name))throw new Error('Minecraft-Name sieht ungültig aus.');const uuid=normalizeUuid($('uuid').value);const title=`[N3X REGISTER] ${name}`;const body=`N3X-REGISTRATION-V1\n\nMinecraft Name: ${name}\nMinecraft UUID: ${uuid}\n\nIch möchte mich für das N3X Network registrieren. Der N3X-Admin entscheidet über Freischaltung und Cape-Zuweisung.`;const url='https://github.com/iooimc/N3X-Launcher/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);$('status').textContent='GitHub wird geöffnet. Dort die Anfrage nur noch mit „Submit new issue“ bestätigen.';$('status').className='status ok';location.href=url;}catch(error){$('status').textContent=error.message;$('status').className='status err';}};
+</script>
+</body></html>
