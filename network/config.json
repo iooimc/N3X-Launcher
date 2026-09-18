@@ -1,0 +1,23 @@
+{
+  "name": "N3X Network",
+  "schemaVersion": 1,
+  "mode": "static-read-only",
+  "transport": "https",
+  "pagesBase": "https://iooimc.github.io/N3X-Launcher/",
+  "rawBase": "https://raw.githubusercontent.com/iooimc/N3X-Launcher/main/",
+  "endpoints": {
+    "capeCatalog": "network/capes/catalog.json",
+    "userIndex": "network/users/index.json",
+    "userDirectory": "network/users/"
+  },
+  "capabilities": {
+    "publicCapeCatalog": true,
+    "publicProfiles": true,
+    "clientReadWithoutToken": true,
+    "clientWriteWithoutBackend": false
+  },
+  "security": {
+    "embedGithubWriteTokenInClient": false,
+    "notes": "N3X clients only read public data. Writes must later go through an authenticated serverless bridge."
+  }
+}
