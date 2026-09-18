@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080910">
+  <meta name="robots" content="noindex,nofollow">
+  <title>N3X Network Admin</title>
+  <link rel="stylesheet" href="network/admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-head">
+      <div class="admin-brand">N3X<b>.</b><small>NETWORK ADMIN</small></div>
+      <div class="row"><a class="btn" href="./">Website</a><a class="btn" href="register.html">Registrierung</a></div>
+    </header>
+
+    <section class="token-box">
+      <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="GitHub Fine-grained Token (wird nicht gespeichert)">
+      <button id="connect" class="btn primary">Admin verbinden</button>
+      <p>Der Token bleibt nur im Arbeitsspeicher dieses Tabs. Er wird weder in GitHub Pages noch im Launcher gespeichert. Benötigt für <b>iooimc/N3X-Launcher</b>: Contents read/write und Issues read/write.</p>
+    </section>
+    <div id="status" class="status">Nicht verbunden.</div>
+
+    <section id="dashboard" class="hidden">
+      <div class="grid2">
+        <article class="panel">
+          <h2>Registrierungen</h2>
+          <p>Offene N3X-Registrierungsanfragen aus GitHub Issues. Du entscheidest selbst, wen du freischaltest.</p>
+          <div id="pending" class="list"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Spieler</h2>
+          <p>Freigeschaltete Minecraft-UUIDs. Ein Cape wird erst für andere N3X-Spieler sichtbar, wenn du es hier zuweist.</p>
+          <div class="stack" style="margin-bottom:14px">
+            <div class="field"><label>SPIELER MANUELL HINZUFÜGEN</label><div class="row"><input id="manual-name" placeholder="Minecraft Name"><input id="manual-uuid" placeholder="UUID"><button id="manual-add" class="btn">+</button></div></div>
+          </div>
+          <div id="users" class="list"></div>
+        </article>
+      </div>
+
+      <div class="grid2" style="margin-top:18px">
+        <article class="panel">
+          <h2>Cape hochladen</h2>
+          <p>PNG mit 64×32, 128×64 oder 256×128 Pixel. Das Asset landet öffentlich im N3X Network.</p>
+          <div class="uploader">
+            <div class="field"><label>CAPE NAME</label><input id="cape-name" placeholder="z. B. Founders Cape"></div>
+            <div class="field"><label>CAPE ID</label><input id="cape-id" placeholder="founders-cape"></div>
+            <div class="field full"><label>PNG-DATEI</label><input id="cape-file" type="file" accept="image/png"></div>
+            <div id="cape-preview" class="preview full"><span class="mini">Noch keine PNG gewählt.</span></div>
+            <button id="cape-upload" class="btn primary full">Cape ins Network hochladen</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Cape Collection</h2>
+          <p>Network-Capes mit hochgeladenem Asset können Spielern zugewiesen werden.</p>
+          <div id="capes" class="list"></div>
+        </article>
+      </div>
+
+      <p class="footer-note">N3X Network läuft hier ohne eigenen Server: GitHub Pages liefert die öffentlichen Dateien aus. Der Admin-Tab schreibt mit deinem persönlichen GitHub-Token direkt in dein Repository. Normale Launcher und Mods erhalten niemals diesen Token.</p>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
