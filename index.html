@@ -18,7 +18,8 @@
     <nav>
       <a href="#network">Network</a>
       <a href="#capes">Capes</a>
-      <a href="#api">API</a>
+      <a href="register.html">Registrieren</a>
+      <a href="admin.html">Admin</a>
       <a href="privacy.html">Privacy</a>
       <a href="https://github.com/iooimc/N3X-Launcher">GitHub</a>
     </nav>
@@ -29,10 +30,10 @@
       <div>
         <div class="eyebrow"><span class="live-dot"></span>N3X NETWORK · GITHUB PAGES</div>
         <h1>Your world.<br><em>Your style.</em><br>Your N3X.</h1>
-        <p class="lead">N3X verbindet Launcher, Styles und eigene Capes über eine öffentliche, statische Network-Schicht auf GitHub. Kein eigener Server nötig.</p>
+        <p class="lead">N3X verbindet Launcher, Styles und eigene Capes über eine öffentliche Network-Schicht auf GitHub. Spieler registrieren ihre Minecraft-UUID; der N3X-Admin entscheidet, welches Cape öffentlich zugewiesen wird.</p>
         <div class="actions">
           <a class="button primary" href="https://github.com/iooimc/N3X-Launcher/releases">Launcher laden</a>
-          <a class="button" href="#capes">Cape Network ansehen</a>
+          <a class="button" href="register.html">Im Network registrieren</a>
         </div>
       </div>
 
@@ -40,7 +41,7 @@
         <div class="network-head"><span>N3X // NETWORK</span><b id="network-state">VERBINDE…</b></div>
         <div class="identity">
           <div class="avatar">N3X</div>
-          <div><small>PUBLIC NETWORK</small><h2>Style Sync</h2><p>GitHub Pages + Raw Content</p></div>
+          <div><small>PUBLIC NETWORK</small><h2>Managed Cape Sync</h2><p>GitHub Pages + Admin-Zuweisung</p></div>
         </div>
         <div class="stats">
           <div><strong id="cape-count">–</strong><span>Capes</span></div>
@@ -52,40 +53,40 @@
     </section>
 
     <section id="network" class="section">
-      <div class="section-title"><span>01 // NETWORK</span><h2>Ein gemeinsamer Cape-Layer für N3X.</h2><p>Der Launcher und die Mod können öffentliche JSON-Dateien und Cape-Metadaten direkt über GitHub Pages lesen. Für Downloads und Lookups ist kein eigener Server nötig.</p></div>
+      <div class="section-title"><span>01 // NETWORK</span><h2>Ein gemeinsamer Cape-Layer für N3X.</h2><p>Launcher und Mod lesen öffentliche UUID-basierte Cape-Zuweisungen direkt über GitHub Pages. Der Spieler braucht dafür keinen GitHub-Token im Launcher.</p></div>
       <div class="flow">
-        <article><b>01</b><h3>Launcher</h3><p>Wählt Skin und Cape und kennt deine Minecraft-Identität.</p></article>
+        <article><b>01</b><h3>Registrierung</h3><p>Ein Spieler meldet Minecraft-Name und UUID beim N3X Network an.</p></article>
         <i>→</i>
-        <article><b>02</b><h3>N3X Network</h3><p>Statische Profile, Cape-Katalog und Network-Konfiguration auf GitHub.</p></article>
+        <article><b>02</b><h3>Admin</h3><p>Du genehmigst Spieler, lädst Capes hoch und weist sie gezielt einer UUID zu.</p></article>
         <i>→</i>
-        <article><b>03</b><h3>Fabric Mod</h3><p>Liest das öffentliche Profil eines Spielers und rendert dessen N3X-Cape.</p></article>
+        <article><b>03</b><h3>Launcher + Mod</h3><p>Die Clients lesen nur die fertige öffentliche Zuweisung und rendern das Cape.</p></article>
       </div>
     </section>
 
     <section id="capes" class="section">
-      <div class="section-title"><span>02 // CAPE NETWORK</span><h2>Öffentliche N3X Collection.</h2><p>Diese Galerie kommt direkt aus <code>network/capes/catalog.json</code>. Sobald Cape-Assets im Network liegen, können Launcher, Website und Mod dieselbe Quelle verwenden.</p></div>
+      <div class="section-title"><span>02 // CAPE NETWORK</span><h2>Öffentliche N3X Collection.</h2><p>Die Galerie kommt aus <code>network/capes/catalog.json</code>. Neue PNG-Capes können direkt im Admin Panel hochgeladen werden.</p></div>
       <div id="cape-gallery" class="cape-grid"><div class="empty">Cape-Katalog wird geladen…</div></div>
     </section>
 
     <section id="profiles" class="section compact">
-      <div class="section-title"><span>03 // PROFILES</span><h2>Öffentliche Style-Profile.</h2><p>Profile werden UUID-basiert gespeichert, damit Namensänderungen kein Problem sind. Die Website zeigt nur Daten, die ausdrücklich für N3X veröffentlicht wurden.</p></div>
+      <div class="section-title"><span>03 // PROFILES</span><h2>Freigeschaltete Network-Profile.</h2><p>Profile werden UUID-basiert gespeichert. Nur vom Admin genehmigte Spieler landen im öffentlichen Index.</p></div>
       <div id="profile-list" class="profile-grid"><div class="empty">Noch keine öffentlichen Profile registriert.</div></div>
     </section>
 
     <section id="api" class="section">
-      <div class="section-title"><span>04 // STATIC API</span><h2>Einfach per HTTPS lesen.</h2><p>Die erste Network-Version ist bewusst read-only. So braucht der Launcher keinen geheimen GitHub-Token. Schreiben kommt später über eine kleine signierte Serverless-Bridge.</p></div>
+      <div class="section-title"><span>04 // MANAGED STATIC API</span><h2>Lesen öffentlich. Schreiben nur als Admin.</h2><p>Der Launcher und die Mod lesen ohne Geheimnisse. Änderungen werden ausschließlich über das Admin Panel mit deinem persönlichen GitHub-Zugriff vorgenommen.</p></div>
       <div class="api-grid">
         <article><span>CONFIG</span><code>network/config.json</code><button data-copy="network/config.json">Kopieren</button></article>
         <article><span>CAPES</span><code>network/capes/catalog.json</code><button data-copy="network/capes/catalog.json">Kopieren</button></article>
         <article><span>USERS</span><code>network/users/index.json</code><button data-copy="network/users/index.json">Kopieren</button></article>
       </div>
-      <div class="notice"><strong>Warum noch read-only?</strong><p>Ein GitHub-Schreibtoken darf niemals im Launcher oder in der Mod eingebettet werden. Jeder könnte ihn extrahieren. Deshalb lesen Clients jetzt sicher öffentlich; Upload/Select-Sync wird später über eine kleine authentifizierte Bridge ergänzt.</p></div>
+      <div class="notice"><strong>Admin-Kontrolle</strong><p>Dein GitHub-Schreibtoken wird niemals im Launcher oder in der Mod eingebettet. Das Admin Panel fragt ihn nur für deine aktuelle Browser-Sitzung ab. Öffentliche Cape-Zuweisungen liegen unter <code>network/v1/capes/&lt;uuid&gt;.png</code>.</p></div>
     </section>
 
     <section class="cta">
       <span>N3X // YOUR NEXT WORLD</span>
-      <h2>Launcher und Network benutzen jetzt dieselbe Basis.</h2>
-      <div class="actions center"><a class="button primary" href="https://github.com/iooimc/N3X-Launcher">Repository öffnen</a><a class="button" href="https://github.com/iooimc/N3X-Launcher/releases">Releases</a></div>
+      <h2>Du entscheidest, wer welches N3X-Cape bekommt.</h2>
+      <div class="actions center"><a class="button primary" href="register.html">Spieler registrieren</a><a class="button" href="admin.html">Admin Panel</a></div>
     </section>
   </main>
 
