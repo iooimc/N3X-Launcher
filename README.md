@@ -2,9 +2,9 @@
 
 N3X Launcher is an independent third-party **Minecraft: Java Edition launcher for Windows**.
 
-> **Status:** Early alpha / development build. N3X is not ready for general public use yet.
+> **Status:** Alpha / active development.
 
-🌐 **Project website:** https://iooimc.github.io/N3X-Launcher/
+🌐 **Project website / N3X Network:** https://iooimc.github.io/N3X-Launcher/
 
 ⬇️ **Downloads / releases:** https://github.com/iooimc/N3X-Launcher/releases
 
@@ -12,39 +12,53 @@ N3X Launcher is an independent third-party **Minecraft: Java Edition launcher fo
 
 N3X is being built as a clean Windows launcher for players who already own Minecraft: Java Edition.
 
-Current development goals include:
+Current development includes:
 
 - Microsoft account sign-in
-- Xbox Live and XSTS authentication
-- Minecraft Services authentication
+- Xbox Live / XSTS / Minecraft Services authentication
 - Minecraft Java profile and ownership checks
-- Vanilla Minecraft version management
-- Automatic Java runtime setup
-- Per-instance RAM configuration
-- Separate game instances and worlds
-- Clear local logs and startup diagnostics
+- Vanilla, Fabric and Forge instances
+- automatic Java runtime setup
+- per-instance RAM configuration
+- separate instances and worlds
+- Style Lab for skins and capes
+- owned Minecraft cape display / switching
+- N3X custom capes
+- launcher diagnostics and logs
+
+## N3X Network
+
+`network/` is the public static data layer used by the N3X website and intended for the launcher / cape mod.
+
+Current endpoints:
+
+- `network/config.json`
+- `network/capes/catalog.json`
+- `network/users/index.json`
+- `network/users/<minecraft-uuid>.json` for published profiles
+
+The first version is **read-only** and works through GitHub Pages / raw GitHub content. This lets clients read public cape/profile data without a private server.
+
+A GitHub write token is intentionally **not** embedded in the launcher or mod. Automatic publishing will later go through an authenticated serverless bridge that verifies the Minecraft identity before writing public profile data.
+
+See [`network/README.md`](network/README.md) for the schema and security model.
 
 ## Microsoft authentication
 
-N3X uses Microsoft's OAuth 2.0 **public client / device code flow**.
+N3X uses Microsoft's OAuth 2.0 public-client flow.
 
-The launcher does **not** ask for or store a user's Microsoft password. Authentication is completed directly through Microsoft. After Microsoft authentication, N3X uses the Xbox Live, XSTS and Minecraft Services authentication chain required for Minecraft: Java Edition.
+The launcher does **not** ask for or store a user's Microsoft password. Authentication is completed directly through Microsoft. N3X then uses the Xbox Live, XSTS and Minecraft Services chain required for Minecraft: Java Edition.
 
 N3X only intends to launch Minecraft for users who already have a valid Minecraft: Java Edition entitlement.
-
-## Current AppID approval status
-
-The N3X Microsoft application registration is currently being submitted for Minecraft AppID approval.
-
-The current authentication implementation reaches Microsoft OAuth, Xbox Live and XSTS. Access to Minecraft Services is pending approval of the N3X application registration.
 
 ## Privacy and security
 
 - No Microsoft passwords are collected by N3X.
 - No client secret is embedded in the launcher.
+- No GitHub write token is embedded in the launcher or mod.
 - Authentication is performed through Microsoft.
 - Account tokens are not exposed to the launcher UI.
-- N3X is designed to store persistent authentication data using Windows-provided secure storage where available.
+- Persistent authentication data should use Windows-provided secure storage where available.
 
 ## Platform
 
@@ -53,7 +67,7 @@ The current authentication implementation reaches Microsoft OAuth, Xbox Live and
 
 ## Development status
 
-N3X is currently an **alpha project**. Features, UI and internal implementation may change before a public release.
+N3X is an **alpha project**. Features, UI and internal implementation may change before a public release.
 
 ## Disclaimer
 
