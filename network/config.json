@@ -1,16 +1,20 @@
 {
   "name": "N3X Network",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "mode": "github-pages-admin-managed",
   "transport": "https",
   "pagesBase": "https://iooimc.github.io/N3X-Launcher/",
   "rawBase": "https://raw.githubusercontent.com/iooimc/N3X-Launcher/main/",
   "capeServiceUrl": "https://iooimc.github.io/N3X-Launcher/network",
+  "protocol": "n3x-capes-v1",
   "endpoints": {
+    "protocolManifest": "network/v1/manifest.json",
+    "launcherClient": "network/client.cjs",
     "capeCatalog": "network/capes/catalog.json",
     "userIndex": "network/users/index.json",
     "userDirectory": "network/users/",
     "assignedCapeDirectory": "network/v1/capes/",
+    "publicPage": "index.html",
     "registrationPage": "register.html",
     "adminPage": "admin.html"
   },
@@ -19,6 +23,8 @@
     "publicProfiles": true,
     "publicAssignedCapeRead": true,
     "clientReadWithoutToken": true,
+    "uuidBasedCapeLookup": true,
+    "sharedLauncherClient": true,
     "playerRegistrationViaGithubIssue": true,
     "adminAssignmentViaGithubContentsApi": true
   },
