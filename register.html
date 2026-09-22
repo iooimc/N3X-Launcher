@@ -3,27 +3,32 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080910"><title>N3X Network Registrierung</title>
 <link rel="stylesheet" href="network/admin.css">
-<style>.register{max-width:760px;margin:70px auto;padding:0 22px}.register h1{font-size:52px;letter-spacing:-3px;margin:10px 0}.register h1 b{color:var(--accent)}.register .lead{color:var(--muted);line-height:1.7}.register .panel{margin-top:24px}.register .stack{gap:14px}.register .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.register .notice{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.6;background:#0c0f17}.register code{color:#d7caff}.register .brandline{font-weight:900;letter-spacing:.14em;font-size:11px;color:#b5a3ef}</style>
+<style>.register{max-width:760px;margin:70px auto;padding:0 22px}.register h1{font-size:52px;letter-spacing:-3px;margin:10px 0}.register h1 b{color:var(--accent)}.register .lead{color:var(--muted);line-height:1.7}.register .panel{margin-top:24px}.register .stack{gap:14px}.register .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.register .notice{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.6;background:#0c0f17}.register code{color:#d7caff}.register .brandline{font-weight:900;letter-spacing:.14em;font-size:11px;color:#b5a3ef}.network-card{display:none;margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#0b0e16}.network-card.show{display:flex;gap:16px;align-items:center}.network-card img{width:96px;height:48px;object-fit:contain;image-rendering:pixelated;background:#070910;border:1px solid var(--line);border-radius:8px}.network-card strong{display:block}.network-card small{display:block;color:var(--muted);margin-top:6px;line-height:1.5}</style>
 </head>
 <body>
 <main class="register">
   <div class="brandline">N3X // NETWORK</div>
   <h1>Registriere deinen <b>Style.</b></h1>
-  <p class="lead">Deine Minecraft-UUID wird als öffentliche N3X-ID verwendet. Nach deiner Anfrage entscheidet der N3X-Admin, ob du freigeschaltet wirst und welches Network-Cape du bekommst.</p>
+  <p class="lead">Deine Minecraft-UUID ist deine öffentliche N3X-ID. Über diese UUID laden kompatible N3X-Clients dein zugewiesenes Network-Cape.</p>
   <section class="panel">
     <div class="stack">
       <div class="field"><label>MINECRAFT NAME</label><input id="name" maxlength="16" placeholder="Dein Minecraft-Name"></div>
       <div class="field"><label>MINECRAFT UUID</label><input id="uuid" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
     </div>
-    <div class="actions"><button id="register" class="btn primary">Registrierungsanfrage erstellen</button><a class="btn" href="./">Zur N3X Website</a></div>
-    <div id="status" class="status">Noch nichts abgeschickt.</div>
-    <div class="notice"><b>Warum öffnet sich GitHub?</b><br>GitHub Pages kann selbst keine Formulardaten speichern. Solange N3X keinen eigenen Backend-Server hat, wird die Anfrage deshalb als GitHub Issue angelegt. Du brauchst dafür einen kostenlosen GitHub-Account. Dein Microsoft-/Minecraft-Passwort wird niemals abgefragt.</div>
+    <div class="actions"><button id="check" class="btn">Network-Status prüfen</button><button id="register" class="btn primary">Registrierungsanfrage erstellen</button><a class="btn" href="./">Zur N3X Website</a></div>
+    <div id="status" class="status">UUID eingeben und Network-Status prüfen.</div>
+    <div id="network-card" class="network-card"><img id="cape" alt="N3X Network Cape"><div><strong id="profile-title"></strong><small id="profile-meta"></small></div></div>
+    <div class="notice"><b>Wie funktioniert das?</b><br>GitHub Pages liefert die öffentlichen Profile und Cape-PNGs aus. Andere N3X-Spieler laden dein Cape über <code>network/v1/capes/&lt;UUID&gt;.png</code>. GitHub Pages kann selbst keine sicheren Schreibzugriffe ausführen; neue Registrierungen werden deshalb aktuell als GitHub Issue angelegt und danach vom N3X-Admin freigeschaltet. Dein Microsoft-/Minecraft-Passwort wird niemals abgefragt.</div>
   </section>
 </main>
 <script>
 const $=id=>document.getElementById(id);
 function normalizeUuid(value){const s=String(value||'').replace(/-/g,'').toLowerCase();if(!/^[0-9a-f]{32}$/.test(s))throw new Error('Bitte eine gültige Minecraft-UUID eingeben.');return `${s.slice(0,8)}-${s.slice(8,12)}-${s.slice(12,16)}-${s.slice(16,20)}-${s.slice(20)}`;}
-const q=new URLSearchParams(location.search);if(q.get('name'))$('name').value=q.get('name').slice(0,16);if(q.get('uuid')){try{$('uuid').value=normalizeUuid(q.get('uuid'));}catch{}}
+function hideCard(){$('network-card').classList.remove('show');$('cape').removeAttribute('src');}
+async function checkStatus(){try{hideCard();const uuid=normalizeUuid($('uuid').value);$('uuid').value=uuid;$('status').textContent='N3X Network wird geprüft …';$('status').className='status';const r=await fetch(`./network/users/${uuid}.json?ts=${Date.now()}`,{cache:'no-store'});if(r.status===404){$('status').textContent='Noch nicht im N3X Network registriert.';$('status').className='status err';return null;}if(!r.ok)throw new Error(`Network HTTP ${r.status}`);const p=await r.json();const cape=p.assignedCape||p.cape||'';$('status').textContent='Registriert · N3X Network aktiv';$('status').className='status ok';$('profile-title').textContent=(p.name||'N3X Spieler')+(cape?` · ${cape}`:' · noch kein Cape');$('profile-meta').textContent=`UUID ${uuid}${p.updatedAt?' · aktualisiert '+new Date(p.updatedAt).toLocaleString('de-DE'):''}`;if(cape){$('cape').src=p.capeUrl||`./network/v1/capes/${uuid}.png?ts=${Date.now()}`;$('cape').hidden=false;}else $('cape').hidden=true;$('network-card').classList.add('show');return p;}catch(error){hideCard();$('status').textContent=error.message;$('status').className='status err';return null;}}
+const q=new URLSearchParams(location.search);if(q.get('name'))$('name').value=q.get('name').slice(0,16);if(q.get('uuid')){try{$('uuid').value=normalizeUuid(q.get('uuid'));setTimeout(checkStatus,0);}catch{}}
+$('check').onclick=checkStatus;
+$('uuid').addEventListener('keydown',e=>{if(e.key==='Enter')checkStatus();});
 $('register').onclick=()=>{try{const name=$('name').value.trim();if(!/^[A-Za-z0-9_]{3,16}$/.test(name))throw new Error('Minecraft-Name sieht ungültig aus.');const uuid=normalizeUuid($('uuid').value);const title=`[N3X REGISTER] ${name}`;const body=`N3X-REGISTRATION-V1\n\nMinecraft Name: ${name}\nMinecraft UUID: ${uuid}\n\nIch möchte mich für das N3X Network registrieren. Der N3X-Admin entscheidet über Freischaltung und Cape-Zuweisung.`;const url='https://github.com/iooimc/N3X-Launcher/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);$('status').textContent='GitHub wird geöffnet. Dort die Anfrage nur noch mit „Submit new issue“ bestätigen.';$('status').className='status ok';location.href=url;}catch(error){$('status').textContent=error.message;$('status').className='status err';}};
 </script>
 </body></html>
