@@ -26,11 +26,15 @@
     "uuidBasedCapeLookup": true,
     "sharedLauncherClient": true,
     "playerRegistrationViaGithubIssue": true,
-    "adminAssignmentViaGithubContentsApi": true
+    "adminAssignmentViaGithubContentsApi": true,
+    "ownerLauncherPublisher": true
   },
   "security": {
     "embedGithubWriteTokenInClient": false,
     "adminTokenPersistence": false,
-    "notes": "Launchers and mods only read public data. The admin panel asks the repository owner for a GitHub token at runtime and never stores it in the repository or launcher."
+    "ownerLauncherTokenStorage": "local-electron-safeStorage",
+    "ownerLauncherTokenScope": "fine-grained token restricted to N3X-Launcher with Contents read/write",
+    "minecraftAccessTokenSentToGithub": false,
+    "notes": "Public launchers and mods only need read access. Optional owner publishing stores a repository-scoped GitHub token locally using Electron safeStorage; no write token is committed to the repository or bundled into the launcher."
   }
 }
