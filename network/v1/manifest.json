@@ -1,28 +1,26 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "protocol": "n3x-capes-v1",
   "network": "N3X Network",
   "pagesBase": "https://iooimc.github.io/N3X-Launcher/",
-  "rawBase": "https://raw.githubusercontent.com/iooimc/N3X-Launcher/main/",
+  "capeServiceUrl": "https://n3x.asterwyn.net/capes",
   "uuidFormat": "minecraft-uuid-dashed-lowercase",
-  "cacheSeconds": 60,
+  "cacheSeconds": 30,
   "endpoints": {
-    "config": "network/config.json",
-    "catalog": "network/capes/catalog.json",
-    "users": "network/users/index.json",
-    "user": "network/users/{uuid}.json",
-    "capeTexture": "network/v1/capes/{uuid}.png"
+    "config": "https://iooimc.github.io/N3X-Launcher/network/config.json",
+    "catalog": "https://iooimc.github.io/N3X-Launcher/network/capes/catalog.json",
+    "capeTexture": "https://n3x.asterwyn.net/capes/v1/capes/{uuid}.png",
+    "profile": "https://n3x.asterwyn.net/capes/v1/profiles/{uuid}.json",
+    "health": "https://n3x.asterwyn.net/capes/healthz"
   },
   "clientRules": {
     "readWithoutAuthentication": true,
-    "writeFromLauncher": false,
+    "writeFromLauncher": true,
     "writeFromMod": false,
-    "ownerPublisherAvailable": true,
-    "ownerPublisherStoresTokenLocallyEncrypted": true,
-    "ownerPublisherRequiresRepoScopedGithubToken": true,
+    "writeUsesMinecraftIdentity": true,
+    "githubTokenRequired": false,
     "resolveByUuid": true,
     "usernameIsDisplayOnly": true,
-    "missingProfileMeansNoNetworkCape": true,
     "missingCapeMeansNoNetworkCape": true
   }
 }
