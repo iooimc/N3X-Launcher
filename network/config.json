@@ -1,11 +1,11 @@
 {
   "name": "N3X Network",
-  "schemaVersion": 3,
-  "mode": "github-pages-admin-managed",
+  "schemaVersion": 4,
+  "mode": "static-site-plus-live-cape-service",
   "transport": "https",
   "pagesBase": "https://iooimc.github.io/N3X-Launcher/",
   "rawBase": "https://raw.githubusercontent.com/iooimc/N3X-Launcher/main/",
-  "capeServiceUrl": "https://iooimc.github.io/N3X-Launcher/network",
+  "capeServiceUrl": "https://n3x.asterwyn.net/capes",
   "protocol": "n3x-capes-v1",
   "endpoints": {
     "protocolManifest": "network/v1/manifest.json",
@@ -13,7 +13,10 @@
     "capeCatalog": "network/capes/catalog.json",
     "userIndex": "network/users/index.json",
     "userDirectory": "network/users/",
-    "assignedCapeDirectory": "network/v1/capes/",
+    "legacyAssignedCapeDirectory": "network/v1/capes/",
+    "liveCapeService": "https://n3x.asterwyn.net/capes",
+    "liveCapeTexture": "https://n3x.asterwyn.net/capes/v1/capes/{uuid}.png",
+    "liveProfile": "https://n3x.asterwyn.net/capes/v1/profiles/{uuid}.json",
     "publicPage": "index.html",
     "registrationPage": "register.html",
     "adminPage": "admin.html"
@@ -24,17 +27,16 @@
     "publicAssignedCapeRead": true,
     "clientReadWithoutToken": true,
     "uuidBasedCapeLookup": true,
-    "sharedLauncherClient": true,
-    "playerRegistrationViaGithubIssue": true,
-    "adminAssignmentViaGithubContentsApi": true,
-    "ownerLauncherPublisher": true
+    "inGameCapeSelection": true,
+    "launcherAutoPublish": true,
+    "minecraftIdentityVerifiedCapeWrite": true,
+    "githubTokenRequiredForPlayers": false
   },
   "security": {
     "embedGithubWriteTokenInClient": false,
-    "adminTokenPersistence": false,
-    "ownerLauncherTokenStorage": "local-electron-safeStorage",
-    "ownerLauncherTokenScope": "fine-grained token restricted to N3X-Launcher with Contents read/write",
-    "minecraftAccessTokenSentToGithub": false,
-    "notes": "Public launchers and mods only need read access. Optional owner publishing stores a repository-scoped GitHub token locally using Electron safeStorage; no write token is committed to the repository or bundled into the launcher."
+    "playerGithubTokenRequired": false,
+    "writeAuthentication": "Minecraft access token verified against Minecraft Services profile ownership",
+    "minecraftAccessTokenPersistenceOnCapeService": false,
+    "notes": "Players do not need a GitHub token or a separate N3X account. The launcher uses its existing Minecraft session only when publishing or deleting that player's own UUID cape. Public cape reads require no authentication."
   }
 }
